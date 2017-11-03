@@ -1,15 +1,16 @@
 mixin storeForm(store = {})
     form(
-        action="/add"
+        action=`/add/${store._id || ''}`
         method="POST"
         class="card"
     )
         label(for="name") Name
-        input(type="text" name="name")
+        input(type="text" name="name" value=store.name)
         label(for="description") Description
-        textarea(name="description")
+        textarea(name="description")= store.description
         
         - const choices = ["Pizza", "Döner", "Pommes", "Thai", "Eis"]
+        - const tags = store.tags || []
         ul.tags
             each choice in choices 
                 .tag.tag__choice
@@ -18,6 +19,7 @@ mixin storeForm(store = {})
                         name="tags"
                         id=choice
                         value=choice
+                        checked=tags.includes(choice)
                     )
                     label(for=choice)= choice
         
