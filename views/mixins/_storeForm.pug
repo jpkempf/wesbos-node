@@ -5,18 +5,18 @@ mixin storeForm(store = {})
         class="card"
     )
         label(for="name") Name
-        input(type="text" name="name" value=store.name)
+        input(type="text" name="name" value=store.name required)
 
         label(for="description") Description
-        textarea(name="description")= store.description
+        textarea(name="description" required)= store.description
 
         - const loc = store.location;
         label(for="address") Address
-        input(type="text" id="address" name="location[address]" value=(loc && loc.address))
-        label(for="lng") Longitude
-        input(type="text" id="lng" name="location[coordinates][0]" value=(loc && loc.coordinates[0]))
-        label(for="lat") Latitude
-        input(type="text" id="lat" name="location[coordinates][1]" value=(loc && loc.coordinates[1]))
+        input(type="text" id="address" name="location[address]" value=(loc && loc.address) required)
+        label(for="address") Longitude
+        input(type="text" id="lng" name="location[coordinates][0]" value=(loc && loc.coordinates[0]) required)
+        label(for="address") Latitude
+        input(type="text" id="lat" name="location[coordinates][1]" value=(loc && loc.coordinates[1]) required)
         
         - const choices = ["Pizza", "Döner", "Pommes", "Thai", "Eis"]
         - const tags = store.tags || []
