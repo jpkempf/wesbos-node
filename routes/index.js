@@ -1,18 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const storeController = require('../controllers/storeController');
+const storeCtrl = require('../controllers/storeController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-/** GET */
+router.get('/', catchErrors(storeCtrl.getStores));
 
-router.get('/', catchErrors(storeController.getStores));
-router.get('/stores', catchErrors(storeController.getStores));
-router.get('/stores/:id/edit', catchErrors(storeController.editStore));
-router.get('/add', storeController.addStore);
+router.get('/add',
+    storeCtrl.addStore
+);
+router.post('/add',
+    storeCtrl.upload,
+    catchErrors(storeCtrl.resize),
+    catchErrors(storeCtrl.createStore)
+);
+router.post('/add/:id',
+    storeCtrl.upload,
+    catchErrors(storeCtrl.resize),
+    catchErrors(storeCtrl.updateStore)
+);
 
-/** POST */
+router.get('/stores',
+    catchErrors(storeCtrl.getStores)
+);
+router.get('/stores/:id/edit',
+    catchErrors(storeCtrl.editStore)
+);
 
-router.post('/add', catchErrors(storeController.createStore));
-router.post('/add/:id', catchErrors(storeController.updateStore));
+router.get('/store/:slug',
+    catchErrors(storeCtrl.getStoreBySlug)
+);
 
 module.exports = router;
